@@ -71,6 +71,17 @@ module GoogleDrive
           (row, col) = parse_cell_args(args)
           return self.cells[[row, col]] || ""
         end
+        
+        # Iterates over each cell and yielding on the row, column and value
+        #
+        # e.g.
+        #   worksheet.each { |row, column, value| puts "Found value #{value} at [#{row}, #{column}]"}
+        def each
+          reload() if !@cells
+          @cells.each { |key, value|
+            yield key[0], key[1], value
+          }
+        end
 
         # Updates content of the cell.
         # Arguments in the bracket must be either (row number, column number) or cell name. 

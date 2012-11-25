@@ -32,5 +32,22 @@ describe "GoogleDrive::Worksheet" do
     subject[1, 3].should == "3"
   end
   
+  it "Should be possible it iterate over the worksheet" do
+    empty_worksheet
+    actual_cells = []
+    cells = [ ["1", "2"], ["3", "4"] ]
+    subject.update_cells(1, 1, cells)
+
+    subject.each { |row, column, value|
+      actual_cells << [row, column, value]
+    }
+    
+    actual_cells.should be_include([1, 1, "1"])
+    actual_cells.should be_include([1, 2, "2"])
+    actual_cells.should be_include([2, 1, "3"])
+    actual_cells.should be_include([2, 2, "4"])
+    
+  end
+  
   
 end
