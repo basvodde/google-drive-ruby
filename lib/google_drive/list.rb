@@ -62,6 +62,16 @@ module GoogleDrive
           return (1..@worksheet.num_cols).map(){ |i| @worksheet[1, i] }.uniq()
         end
         
+        # Returns an array with the row numbers in which the column_name has value value
+        def row_numbers_of_column_with(column_name, value)
+          column_number = key_to_col(column_name)
+          row_numbers = []
+          for i in 1..self.size+1
+            row_numbers << i if @worksheet[i, column_number] == value
+          end
+          row_numbers     
+        end
+        
         # Updates column names i.e. the contents of the first row.
         #
         # Note that update is not sent to the server until

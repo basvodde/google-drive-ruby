@@ -18,6 +18,7 @@ describe "GoogleDrive::Worksheet" do
     @session.should_receive(:request).and_return(doc)
     doc.should_receive(:css).and_return(element, element, [element], [])
     element.should_receive(:text).and_return("0", "0", "title")
+    subject.reload
   end
   
   it "is empty when calling the empty_worksheet helper" do
@@ -49,5 +50,13 @@ describe "GoogleDrive::Worksheet" do
     
   end
   
-  
+  it "can return the row numbers when an entry in a column is a certain value" do
+    empty_worksheet
+    cells = [ ["id", "name"], ["1", "Bas"], ["2", "Hiroshi"], ["3", "Bas"], ["2", "Matz"] ]
+    subject.update_cells(1, 1, cells)
+    
+    subject.list.row_numbers_of_column_with("id", "2").should == [3, 5]
+    subject.list.row_numbers_of_column_with("name", "Bas").should == [2, 4]
+    subject.list.row_numbers_of_column_with("name", "Unknown").should == []
+  end
 end
