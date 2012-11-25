@@ -25,4 +25,12 @@ describe "GoogleDrive::Worksheet" do
     subject[1, 1].should == ""
   end
   
+  it "Should be able to update one row using update_row" do
+    empty_worksheet
+    subject.update_row(1, ["1", "2", "3"])
+    subject[1, 1].should == "1"
+    subject[1, 3].should == "3"
+  end
+  
+  
 end

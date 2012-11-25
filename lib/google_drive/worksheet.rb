@@ -105,6 +105,16 @@ module GoogleDrive
             end
           end
         end
+        
+        # Updates cells in a row by a Array.
+        #
+        # e.g.
+        #   worksheet.update_row(2, ["1", "2", "3", "4"])
+        def update_row(row, row_data)
+          row_data.each_index { |index|
+            self[row, index+1] = row_data[index]
+          }
+        end
 
         # Returns the value or the formula of the cell. Arguments must be either
         # (row number, column number) or cell name. Top-left cell is [1, 1].
