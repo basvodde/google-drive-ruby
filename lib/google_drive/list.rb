@@ -67,7 +67,7 @@ module GoogleDrive
           column_number = key_to_col(column_name)
           row_numbers = []
           for i in 1..self.size+1
-            row_numbers << i if @worksheet[i, column_number] == value
+            row_numbers << (i - 2) if @worksheet[i, column_number] == value
           end
           row_numbers     
         end

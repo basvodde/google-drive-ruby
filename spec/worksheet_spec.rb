@@ -55,8 +55,9 @@ describe "GoogleDrive::Worksheet" do
     cells = [ ["id", "name"], ["1", "Bas"], ["2", "Hiroshi"], ["3", "Bas"], ["2", "Matz"] ]
     subject.update_cells(1, 1, cells)
     
-    subject.list.row_numbers_of_column_with("id", "2").should == [3, 5]
-    subject.list.row_numbers_of_column_with("name", "Bas").should == [2, 4]
+    subject.list.row_numbers_of_column_with("id", "2").should == [1, 3]
+    subject.list.row_numbers_of_column_with("name", "Bas").should == [0, 2]
     subject.list.row_numbers_of_column_with("name", "Unknown").should == []
   end
+    
 end
